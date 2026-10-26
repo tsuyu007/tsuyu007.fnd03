@@ -21,8 +21,8 @@ window.addEventListener("load", function () {
   const mypageArea = document.querySelector("#mypage-area");
 
   mypageButton.addEventListener("click", function () {
-    if (mypageArea.style.display === "block") {
-      mypageArea.style.display = "none";
+    if (mypageArea.style.display === "block") { //ブロックとして表示
+      mypageArea.style.display = "none";　//表示しない
       return;
     }
 
@@ -61,12 +61,6 @@ window.addEventListener("load", function () {
 
 
 
-
-
-
-
-
-
 ////////////////////// ロッカー情報の初期読み込み ///////////////////////
 let lockerinfo = JSON.parse(localStorage.getItem("lockerinfo"));
 
@@ -83,6 +77,7 @@ if (!lockerinfo) {
   }
   localStorage.setItem("lockerinfo", JSON.stringify(lockerinfo));
 }
+
 
 ////////////////////// 共通関数 //////////////////////
 
