@@ -6,6 +6,7 @@ window.addEventListener("load", function () {
   let username = localStorage.getItem("username");
   let unitname = localStorage.getItem("unitname");
 
+  // 初めてアクセスする場合の処理
   if (!username || !unitname) {
     username = window.prompt("名前を入力してください。");
     unitname = window.prompt("ユニット名を入力してください。");
@@ -13,7 +14,7 @@ window.addEventListener("load", function () {
     localStorage.setItem("unitname", unitname);
   }
 
-  // 初期表示
+  // 初期表示（ロッカーを画面に出す）
   renderLockers();
 
   ////////////////////// マイページ //////////////////////
@@ -21,18 +22,16 @@ window.addEventListener("load", function () {
   const mypageArea = document.querySelector("#mypage-area");
 
   mypageButton.addEventListener("click", function () {
-    if (mypageArea.style.display === "block") { //ブロックとして表示
-      mypageArea.style.display = "none";　//表示しない
+    if (mypageArea.style.display === "block") { //ブロックとして表示する
+      mypageArea.style.display = "none"; //表示しない
       return;
     }
 
     const username = localStorage.getItem("username");
     const unitname = localStorage.getItem("unitname");
 
-    const div = document.createElement("div");
-
+    const div = document.createElement("div"); //マイページに載せる内容
     const myLocker = getMyLocker();
-
     div.innerHTML =
       "使用者: " + username + "<br>" +
       "ユニット名: " + unitname + "<br>";
@@ -61,7 +60,9 @@ window.addEventListener("load", function () {
 
 
 
-////////////////////// ロッカー情報の初期読み込み ///////////////////////
+
+
+////////////////////// ロッカー情報の読み込み ///////////////////////
 let lockerinfo = JSON.parse(localStorage.getItem("lockerinfo"));
 
 if (!lockerinfo) {
@@ -79,15 +80,15 @@ if (!lockerinfo) {
 }
 
 
-////////////////////// 共通関数 //////////////////////
+////////////////////// 共通で使う関数 //////////////////////
 
 // 自分のロッカーを取得（1人1つ）→同姓同名の人の場合は対応不可
 function getMyLocker() {
   const username = localStorage.getItem("username");
 
-  for (let i = 0; i < lockerinfo.length; i++) {
-    if (lockerinfo[i].user === username) {
-      return lockerinfo[i];
+  for (const locker of lockerinfo) {
+    if (locker.user === username) {
+      return locker;
     }
   }
   return null;
@@ -98,8 +99,7 @@ function renderLockers() {
   const lockergrid = document.querySelector("#locker-grid");
   lockergrid.innerHTML = "";
 
-  for (let index = 0; index < lockerinfo.length; index++) {
-    const locker = lockerinfo[index];
+  for (const locker of lockerinfo){
 
     const card = document.createElement("div");
     card.className = "locker-card";
@@ -139,9 +139,9 @@ function renderLockers() {
     card.addEventListener("click", function (event) {
       if (event.target.tagName === "BUTTON") return;
 
-      if (front.style.display !== "none") {
-        front.style.display = "none";
-        back.style.display = "block";
+      if (front.style.display !== "none") { //表が表示なら
+        front.style.display = "none"; //表を非表示にして
+        back.style.display = "block"; //裏をブロックとして表示
       } else {
         back.style.display = "none";
         front.style.display = "block";
@@ -162,12 +162,12 @@ function applyLocker(id) {
     return;
   }
 
-  for (let i = 0; i < lockerinfo.length; i++) {
-    if (lockerinfo[i].id === id) {
-      lockerinfo[i].status = "in use";
-      lockerinfo[i].user = username;
-      lockerinfo[i].unit = unitname;
-      lockerinfo[i].start = today;
+  for (const locker of lockerinfo) {
+    if (locker.id === id) {
+      locker.status = "in use";
+      locker.user = username;
+      locker.unit = unitname;
+      locker.start = today;
     }
   }
 
@@ -178,12 +178,12 @@ function applyLocker(id) {
 
 // ロッカー返却
 function returnLocker(id) {
-  for (let i = 0; i < lockerinfo.length; i++) {
-    if (lockerinfo[i].id === id) {
-      lockerinfo[i].status = "empty";
-      lockerinfo[i].user = "";
-      lockerinfo[i].unit = "";
-      lockerinfo[i].start = "";
+  for (const locker of lockerinfo) {
+    if (locker.id === id) {
+      locker.status = "empty";
+      locker.user = "";
+      locker.unit = "";
+      locker.start = "";
     }
   }
 
