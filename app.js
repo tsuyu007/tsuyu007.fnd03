@@ -82,12 +82,13 @@ if (!lockerinfo) {
 
 ////////////////////// 共通で使う関数 //////////////////////
 
-// 自分のロッカーを取得（1人1つ）→同姓同名の人の場合は対応不可
+// 自分のロッカーを取得（1人1つ）→同姓同名かつ同じユニットの場合は対応不可
 function getMyLocker() {
   const username = localStorage.getItem("username");
+  const unitname = localStorage.getItem("unitname");
 
   for (const locker of lockerinfo) {
-    if (locker.user === username) {
+    if (locker.user === username && locker.unit === unitname) {
       return locker;
     }
   }
