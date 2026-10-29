@@ -44,7 +44,7 @@ body {
   background: white;
   color: black;
   padding: 15px;
-  border: 2px solid black;
+  border: 4px solid black;
   border-radius: 8px;
   display: none;        /* 初期は非表示（ボタン押したら表示） */
   z-index: 1000;        /* ヘッダーより前に出す */
@@ -81,10 +81,12 @@ body {
   margin-top: 10px;
   margin-bottom: 1px;
   border-radius: 8px;
+  border: 4px solid rgb(179, 146, 179);
 }
 
 .return-btn {
   padding: 4px 4px;
   margin-top: 10px;
   border-radius: 8px;
+  border: 4px solid rgb(179, 146, 179);
 }
