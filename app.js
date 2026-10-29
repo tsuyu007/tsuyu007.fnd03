@@ -22,8 +22,8 @@ window.addEventListener("load", function () {
   mypageButton.addEventListener("click", function () {
 
     // トグル表示
-    if (mypageArea.style.display === "block") {
-      mypageArea.style.display = "none";
+    if (mypageArea.style.display === "block") {//blockで表示
+      mypageArea.style.display = "none";//表示しない
       return;
     }
 
@@ -142,7 +142,7 @@ function renderLockers() {
   }
 }
 
-////////////////////// ロッカー申請 //////////////////////
+////////////////////// ロッカー申請 /////////////////////////////////
 function applyLocker(id) {
   const username = localStorage.getItem("username");
   const unitname = localStorage.getItem("unitname");
